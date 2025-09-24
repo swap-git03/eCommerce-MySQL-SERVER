@@ -1,12 +1,12 @@
 const { DataTypes } = require('sequelize')
 const sequelize = require('../config/db')
 
-const Category = sequelize.define('Category', {
-    cName : {
+const Brands = sequelize.define('Brands', {
+    bName : {
         type:DataTypes.STRING,
         allowNull:false,
     }
 })
 
 
-module.exports = Category
+module.exports = Brands

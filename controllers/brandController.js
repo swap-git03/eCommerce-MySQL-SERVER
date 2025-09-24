@@ -1,10 +1,10 @@
 const Categories = require('../models/categoryModel')
 
 // GET ALL
-const getAllCategories = async(req, res) => {
+const getAllBrands = async(req, res) => {
         try {
-            const categories = await Category.findAll()
-            res.status(200).send({categories:categories, succcess:true})
+            const brands = await Brands.findAll()
+            res.status(200).send({brands:brands, succcess:true})
         } catch (error) {
             res.status(500).send({msg:'server error'})
         }
@@ -23,12 +23,12 @@ function getCategoryById (req, res) {
 };
 
 // CREATE
-async function createCategory (req, res) {
+async function createBrand (req, res) {
     try {
-          const newCategory = await Category.create(req.body)
-          if (newCategory) {res.status(200).send({msg:"category created succesfffully", success:true})
+          const newBrand = await Brand.create(req.body)
+          if ( newBrand ) {res.status(200).send({msg:"brand created succesfffully", success:true})
           }else{
-            res.status(400).send({msg:"error while creatuinng categor", success:false})
+            res.status(400).send({msg:"error while creatuinng brand", success:false})
         }
         } catch (error) {
             res.status(500).send({msg:'server error'})
@@ -49,16 +49,16 @@ function updateCategory (req, res) {
 function deleteCategory(req, res)  {
     const ID  = req.params.ID;
     try {
-                 
+            
         } catch (error) {
             res.status(500).send({msg:'server error'})
         }
 }
 
 module.exports = {
-    getAllCategories,
-    getCategoryById,
-    createCategory,
-    updateCategory,
-    deleteCategory
+    getAllBrands,
+    // getCategoryById,
+    createBrand,
+    // updateCategory,
+    // deleteCategory
 }
