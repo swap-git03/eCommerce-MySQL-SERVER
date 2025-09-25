@@ -12,4 +12,19 @@ const sequelize = new Sequelize(
     }
 )
 
+
+// to test the connection
+sequelize
+    .authenticate()
+    .then(() => {
+        console.log('DATABASE connnected successfully');
+    })
+    .catch((err) => {
+        console.error('unable to connect db', err);
+    });
+
+    sequelize.sync({alter:true})
+    .then(() =>console.log('tables altered successfully'))
+    .catch(err => console.error('sync error', err));
+
 module.exports = sequelize

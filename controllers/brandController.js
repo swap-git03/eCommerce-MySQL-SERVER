@@ -13,7 +13,7 @@ const getAllBrands = async(req, res) => {
 };
 
 // GET BY ID
-function getCategoryById (req, res) {
+function getBrandById (req, res) {
     const ID = req.params.ID;
    try {
             
@@ -36,7 +36,7 @@ async function createBrand (req, res) {
 }
 
 // UPDATE
-function updateCategory (req, res) {
+function updateBrand (req, res) {
     const ID = req.params.ID;
    try {
             
@@ -46,7 +46,7 @@ function updateCategory (req, res) {
 }
 
 // DELETE
-function deleteCategory(req, res)  {
+function deleteBrand(req, res)  {
     const ID  = req.params.ID;
     try {
             
@@ -57,8 +57,8 @@ function deleteCategory(req, res)  {
 
 module.exports = {
     getAllBrands,
-    // getCategoryById,
+    getBrandById,
     createBrand,
-    // updateCategory,
-    // deleteCategory
+    updateBrand,
+    deleteBrand
 }

@@ -5,6 +5,7 @@ const router = express.Router();
 
 // READ
 router.get("/getAllCategories", categoryController.getAllCategories);
+// get by id
 router.get("/getCategoryById/:id", categoryController.getCategoryById);
 
 // CREATE

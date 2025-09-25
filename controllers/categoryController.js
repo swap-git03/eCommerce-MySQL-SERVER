@@ -8,8 +8,6 @@ const getAllCategories = async(req, res) => {
         } catch (error) {
             res.status(500).send({msg:'server error'})
         }
-
-
 };
 
 // GET BY ID
