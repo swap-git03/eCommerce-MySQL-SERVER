@@ -1,64 +1,79 @@
-const Categories = require('../models/categoryModel')
-
-// GET ALL
-const getAllBrands = async(req, res) => {
-        try {
-            const brands = await Brands.findAll()
-            res.status(200).send({brands:brands, succcess:true})
-        } catch (error) {
-            res.status(500).send({msg:'server error'})
-        }
+const Brand = require('../models/brandModel')
 
 
+const getAllBrands = async (req, res) => {
+    try {
+        const brands = await Brand.findAll()
+        res.status(200).send({brands:brands,success:true}) 
+    } catch (error) {
+        res.status(500).send({msg:"server error"})
+    }
 };
 
-// GET BY ID
-function getBrandById (req, res) {
-    const ID = req.params.ID;
+async function getBrandById(req, res) {
+  const ID = req.params.ID;
    try {
-            
-        } catch (error) {
-            res.status(500).send({msg:'server error'})
-        }
-};
-
-// CREATE
-async function createBrand (req, res) {
-    try {
-          const newBrand = await Brand.create(req.body)
-          if ( newBrand ) {res.status(200).send({msg:"brand created succesfffully", success:true})
-          }else{
-            res.status(400).send({msg:"error while creatuinng brand", success:false})
-        }
-        } catch (error) {
-            res.status(500).send({msg:'server error'})
-        }
+     console.log(ID) 
+     const brand = await Brand.findByPk(ID);
+    if (!brand){
+        res.status(404).send({ message: "Brand not found" });
+    }else{
+    res.status(200).send({ success: true, brand });  
+    }
+    } catch (error) {
+        res.status(500).send({msg:"server error"})
+    }
 }
 
-// UPDATE
-function updateBrand (req, res) {
-    const ID = req.params.ID;
+async function createBrand(req, res) {
+    console.log(req.body)
+     try {
+        const newBrand = await Brand.create(req.body)
+        if(newBrand){
+        res.status(200).send({msg:"Brand created successfully",success:true})
+        }else{
+        res.status(400).send({msg:"Error while creating Brand",success:false})
+        }
+    } catch (error) {
+        res.status(500).send({msg:"server error"})
+    }
+
+}
+async function updateBrand(req, res) {
+  const ID = req.params.ID;
    try {
-            
-        } catch (error) {
-            res.status(500).send({msg:'server error'})
-        }
-}
+    const { bName } = req.body;
+    const brand = await Brand.findByPk(req.params.id);
+    if (!brand) return res.status(404).send({ message: "Brand not found" });
 
-// DELETE
-function deleteBrand(req, res)  {
-    const ID  = req.params.ID;
-    try {
-            
-        } catch (error) {
-            res.status(500).send({msg:'server error'})
-        }
-}
+    brand.bName = bName || brand.bName;
+    await brand.save();
 
+    res.status(200).send({ success: true, brand });
+        
+    } catch (error) {
+        res.status(500).send({msg:"server error"})
+    }
+
+}
+async function deleteBrand(req, res) {
+  const ID = req.params.ID;
+   try {
+    const brand = await Brand.findByPk(req.params.id);
+    if (!brand) return res.status(404).send({ message: "Brand not found" });
+
+    await brand.destroy();
+    res.status(200).send({ success: true, message: "Brand deleted successfully" });
+        
+    } catch (error) {
+        res.status(500).send({msg:"server error"})
+    }
+
+}
 module.exports = {
-    getAllBrands,
-    getBrandById,
-    createBrand,
-    updateBrand,
-    deleteBrand
-}
+  getAllBrands,
+  getBrandById,
+  createBrand,
+  updateBrand,
+  deleteBrand,
+};
