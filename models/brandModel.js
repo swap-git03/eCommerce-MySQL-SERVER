@@ -5,6 +5,11 @@ const Brands = sequelize.define('Brands', {
     bName : {
         type:DataTypes.STRING,
         allowNull:false,
+    },
+    bImage:{
+        type: DataTypes.STRING,
+        allowNull:false,
+
     }
 })
 
